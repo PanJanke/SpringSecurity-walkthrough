@@ -13,8 +13,8 @@ public class TodoResource {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final List<Todo> TODOS_LIST =
-            List.of(new Todo("in28minutes", "Learn AWS"),
-                    new Todo("in28minutes", "Get AWS Certified"));
+            List.of(new Todo("jano", "Learn AWS"),
+                    new Todo("jano", "Get AWS Certified"));
 
     @GetMapping("/todos")
     public List<Todo> retrieveAllTodos() {
