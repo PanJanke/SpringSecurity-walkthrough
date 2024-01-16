@@ -3,6 +3,10 @@ package pl.jano.learnspringsecurity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
@@ -21,7 +25,10 @@ public class TodoResource {
         return TODOS_LIST;
     }
 
-    @GetMapping("/users/{username}/todos")
+    @PreAuthorize("hasRole('USER') and #username == authentication.name")
+    @PostAuthorize("returnObject.username == 'in28minutes'")
+    @RolesAllowed({"ADMIN", "USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public Todo retrieveTodosForSpecificUser(@PathVariable String username) {
         return TODOS_LIST.get(0);
     }
